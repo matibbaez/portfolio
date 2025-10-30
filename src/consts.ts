@@ -4,7 +4,7 @@ export const SITE: Site = {
   title: 'Portfolio',
   description:
     "Estudiante de Tecnicatura en Programación. Apasionado por el desarrollo de software. Me especializo en construir soluciones web completas, desde el frontend hasta la infraestructura.",
-  href: 'http://localhost:3010',
+  href: 'https://portfolio-pied-chi-42.vercel.app/',
   author: 'Matias Baez',
   locale: 'en-US',
   location: 'Argentina',
