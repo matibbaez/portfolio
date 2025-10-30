@@ -1,0 +1,119 @@
+---
+title: "Web Performance 2025: ¡Dejá de Torturar a tus Usuarios! Trucos para que tu Sitio Vuele"
+description: "Tu sitio carga demasiado lento? 🐌 Repasamos los culpables habituales y te damos tips prácticos (¡y fáciles!) para optimizar imágenes, código, fuentes y caché en 2025."
+date: 2025-10-29 # Fecha de hoy
+tags:
+  - "web performance"
+  - "optimización web"
+  - "core web vitals"
+  - "lazy loading"
+  - "image optimization"
+  - "code splitting"
+  - "caching"
+  - "cdn"
+authors:
+  - "Matias Baez" # ¡Vos!
+slug: "web-performance-2025-optimizar-velocidad-carga"
+updatedDate: 2025-10-29
+---
+
+# ¡Tu Web Carga Lento! 🐌💨 Cómo Dejar de Hacer Esperar a la Gente (Guía Rápida 2025)
+
+¿Hay algo más frustrante que entrar a un sitio y quedarte mirando una pantalla en blanco o imágenes que cargan pixel por pixel? ¡Te dan ganas de revolear el celu! 📱💥 Si tu sitio hace eso, estás perdiendo usuarios (y probablemente plata).
+
+La **Web Performance** ya no es un "lindo tener", ¡es **obligatorio**! Google te penaliza, los usuarios se rajan. Pero tranqui, optimizar no es magia negra. Hoy te tiro la posta sobre los **culpables habituales** de la lentitud y unos **trucos prácticos** para que tu sitio vuele como Usain Bolt. ¡Ponete cómodo!
+
+## ¿Por Qué Mi Sitio Anda a Pedal? Los Sospechosos de Siempre
+
+Si tu web es lenta, probablemente sea por una (o varias) de estas razones:
+
+1.  **Imágenes Gigantes:** Ese `.png` de 8MB que pusiste en la home. ¡Criminal! 🖼️
+2.  **JavaScript Bloqueante:** Kilos y kilos de JS que el navegador tiene que bajar, parsear y ejecutar *antes* de mostrar algo útil. 📜
+3.  **Fuentes Personalizadas Mal Cargadas:** Tipografías hermosas que causan ese "flash" de texto invisible o reacomodamiento (Layout Shift). 🅰️
+4.  **Demasiadas Peticiones:** Cargar 100 archivitos separados (CSS, JS, imágenes) es como pedir 100 cafés de a uno. Ineficiente. ☕
+5.  **Servidor Lento o Lejano:** Tu hosting básico o ubicado en la loma del... bueno, lejos de tus usuarios. 🌍
+
+## ¡Manos a la Obra! Trucos Ninja para Acelerar 🥷
+
+No necesitás ser un gurú. Empezá por acá:
+
+### 1. Domando las Imágenes (¡El Pecado #1!)
+
+* **Elegí el Formato Correcto:**
+    * **WebP** o **AVIF:** ¡El estándar moderno! Mucho más livianos que JPG/PNG con calidad similar. Usalos siempre que puedas.
+    * **JPG:** Para fotos con muchos colores.
+    * **PNG:** Si necesitás transparencia.
+    * **SVG:** Para logos e íconos (¡escalan perfecto!).
+* **Comprimí SIN PIEDAD:** Usá herramientas online (TinyPNG, Squoosh) o locales para bajarles el peso SIN que se vean horribles.
+* **Tamaño Justo:** No uses una imagen de 2000px si se va a mostrar en 300px. Redimensioná *antes* de subirla.
+* **¡Lazy Loading YA!** Que las imágenes que no se ven (abajo en la página) carguen *recién* cuando el usuario scrollea hasta ahí. Es una línea de código: `<img src="..." loading="lazy" ...>`. ¡Un golazo! ⚽
+
+### 2. Poniendo a Dieta tu JavaScript y CSS
+
+* **Minificá Todo:** Quitá espacios en blanco, comentarios y acortá nombres de variables. Herramientas como Terser (JS) y CSSNano (CSS) lo hacen automático en tu build.
+* **Code Splitting:** ¡Fundamental! Dividí tu JS/CSS en pedazos más chicos. Que la página de "Contacto" no cargue el código del "Carrito de Compras". Frameworks modernos (Astro, Next, Vite) lo hacen (casi) solos.
+* **Carga Asíncrona/Diferida:** Usá `async` o `defer` en tus tags `<script>`. `defer` es generalmente mejor: baja el script mientras parsea el HTML y lo ejecuta *después*, en orden. `async` lo ejecuta apenas lo baja, puede bloquear y no respeta el orden.
+
+### 3. Las Fuentes: Que Sean Lindas Y Rápidas
+
+* **Formatos Modernos:** Usá **WOFF2**. Es el más comprimido y soportado.
+* **`font-display: swap;`:** ¡Clave! En tu `@font-face`, agregá esto. Muestra una fuente del sistema *mientras* carga la tuya. Evita el texto invisible (FOIT) y mejora la percepción de velocidad.
+* **Cargá Solo lo Necesario:** ¿Usás solo los pesos `400` y `700` de una fuente? No cargues los `100`, `300`, `900`, etc.
+* **Self-Hosting (si podés):** Cargar las fuentes desde tu propio dominio suele ser más rápido que pedirlas a Google Fonts (menos DNS lookups).
+
+### 4. Menos Viajes al Servidor
+
+* **Combiná Archivos (con Cuidado):** Herramientas de build (Vite, Webpack) pueden juntar varios archivos JS o CSS en uno solo (bundling). Reduce peticiones. ¡Pero ojo! No hagas un mega-archivo de 5MB. Code splitting es el balance.
+* **HTTP/2 o HTTP/3:** Tu hosting debería usarlo. Permiten bajar múltiples archivos en paralelo sobre la misma conexión. Mucho más eficiente.
+
+### 5. Acercando el Contenido (Caché y CDN)
+
+* **Cacheo del Navegador:** Configurá bien las cabeceras `Cache-Control` en tu servidor. Decile al navegador que guarde tus CSS, JS e imágenes por un buen tiempo para no volver a pedirlos.
+* **CDN (Content Delivery Network):** ¡Fundamental! Servicios como Cloudflare, Vercel, Netlify ponen copias de tus archivos estáticos en servidores *alrededor del mundo*. El usuario baja las cosas desde el servidor más cercano. ¡La diferencia es brutal! 🌍➡️🏠
+
+## ¡Medí, Mejorá, Repetí! 📊
+
+¿Cómo sabés si vas bien? ¡Usá herramientas!
+* **Google Lighthouse:** Integrado en Chrome DevTools (pestaña Lighthouse). Te da un puntaje y recomendaciones CLARÍSIMAS. ¡Empezá por acá!
+* **WebPageTest:** Más avanzado, te da detalles súper granulares de la carga.
+* **Google PageSpeed Insights:** Similar a Lighthouse pero online y con datos de usuarios reales (si tu sitio tiene tráfico).
+
+**El Ciclo:** Medí -> Identificá el cuello de botella (¿imágenes pesadas?) -> Aplicá una optimización -> Volvé a medir. ¡Y así!
+
+## Mini-Caso: El E-commerce "LentoMart" 🐢
+
+"LentoMart" vendía productos artesanales. Fotos hermosas... y pesadísimas (PNGs de 5MB). El sitio tardaba 15 segundos en ser interactivo. ¡Nadie compraba!
+
+**Las Mejoras Clave:**
+1. Pasaron todas las imágenes a **WebP** y las **comprimieron**.
+2. Implementaron **`loading="lazy"`** en las imágenes de producto.
+3. Activaron **Code Splitting** en su framework.
+4. Pusieron el sitio detrás de **Cloudflare (CDN gratuito)**.
+
+**Resultado:** Tiempo de carga interactivo bajó a **3 segundos**. Las ventas subieron un 25% el mes siguiente. ¡Pequeños cambios, gran impacto!
+
+## Preguntas de Pasillo (Las que te hacen mientras calentás agua)
+
+**P: ¿Optimizar es solo para sitios grandes?**
+R: ¡Nop! Un sitio rápido beneficia a TODOS. Mejora tu ranking en Google, la experiencia del usuario, la tasa de conversión... ¡Hasta tu blog personal se merece ser rápido!
+
+**P: ¿Mi framework (Astro, Next, SvelteKit) no hace todo esto solo?**
+R: Hacen MUCHO, ¡pero no todo! Optimizan el código, hacen code splitting... pero las imágenes gigantes, las fuentes mal cargadas o la falta de CDN siguen siendo tu responsabilidad.
+
+**P: ¿Tengo que llegar a 100 en Lighthouse sí o sí?**
+R: Es un buen objetivo, pero no te obsesiones. A veces, llegar de 90 a 100 requiere esfuerzos enormes para ganancias mínimas. Concentrate en las mejoras de mayor impacto primero. ¡Un 85-95 ya es excelente!
+
+## Tu Desafío Rápido: ¡Corré Lighthouse! 🚦
+
+Ahora mismo:
+1. Abrí tu sitio web en una ventana de incógnito en Chrome.
+2. Apretá F12 (o click derecho -> Inspeccionar).
+3. Andá a la pestaña "Lighthouse".
+4. Elegí "Performance" (y "Mobile" si querés sufrir un poco 😉).
+5. Dale a "Analyze page load".
+
+Mirá el puntaje y las "Oportunidades" que te marca. Elegí **una**, la que parezca más fácil o de mayor impacto (probablemente algo de imágenes), ¡y aplicala! Vas a ver la diferencia al toque.
+
+> _"La vida es muy corta para esperar que cargue un sitio web."_ - Usuario impaciente anónimo (todos nosotros)
+
+#WebPerformance #CoreWebVitals #Optimization #Frontend #LazyLoading #ImageOptimization #AstroJS #NextJS #SvelteKit

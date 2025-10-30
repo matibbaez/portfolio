@@ -1,0 +1,56 @@
+---
+title: "Git: Los 5 Mandamientos Rotos (y Cómo Dejar de Pecar en 2025)"
+description: "¿Cansado de `git push --force` con miedo? Repasamos los errores más comunes en Git y te tiramos unos tips ninja para que tu historial deje de ser un campo minado."
+date: 2025-10-29 # Fecha de hoy
+tags:
+  - "git"
+  - "version control"
+  - "github"
+  - "gitlab"
+  - "bitbucket"
+  - "developer workflow"
+  - "git tips"
+  - "common mistakes"
+authors:
+  - "Matias Baez" # ¡Vos!
+slug: "git-errores-comunes-tips-ninja-2025"
+updatedDate: 2025-10-29
+---
+
+# Git: ¡Dejá de Romper Todo! 💥 Los 5 Pecados Capitales (y Cómo Confesarte con `--force-with-lease`)
+
+Seamos honestos: todos metimos la pata con Git alguna vez. Ese `commit` apurado sin mensaje claro, el `merge` que convirtió tu código en fideos, o el temido `git push --force` que hizo desaparecer el trabajo de un compañero (¡ups!). 😱
+
+Git es **la** herramienta de control de versiones, pero usarla a las apuradas es como hacer malabares con cuchillos con los ojos vendados. En 2025, ya no hay excusas. Hoy vamos a repasar los **5 mandamientos que más rompemos** y te voy a tirar unos **trucos ninja** para que tu historial sea una obra de arte y no un Picasso después de un terremoto. ¡Agarrate!
+
+## Mandamiento #1: "No Harás Commits Vagos" (El Pecado de la Amnesia)
+
+**El Crimen:** `git commit -m "arreglos"` o `git commit -m "update"` o (peor aún) `git commit -m "asdasd"`. ¿Qué arreglaste? ¿Qué actualizaste? Ni vos te vas a acordar mañana.
+
+**La Penitencia (Cómo Hacerlo Bien):**
+¡Mensajes claros, por favor! Usá el **presente imperativo** y sé descriptivo:
+-   **Bien:** `git commit -m "Agrega validación de email al formulario de registro"`
+-   **Bien:** `git commit -m "Corrige error de cálculo en el total del carrito"`
+-   **Mal:** `git commit -m "fix"`
+
+**Tip Ninja ✨:** Usá **Conventional Commits** (`feat:`, `fix:`, `docs:`, `chore:`). Te obliga a pensar qué hiciste y además permite generar changelogs automáticos. ¡Una pinturita!
+
+## Mandamiento #2: "No Contaminarás la Rama Principal" (El Pecado de la Impaciencia)
+
+**El Crimen:** Hacer `commit` y `push` directo a `main` (o `master`). ¡Nooo! Esa rama es sagrada, es lo que (se supone) funciona y está en producción.
+
+**La Penitencia:**
+**¡Siempre en una rama nueva!**
+```bash
+# 1. Asegurate estar en main y actualizado
+git checkout main
+git pull origin main
+
+# 2. Crea tu rama descriptiva
+git checkout -b feature/agrega-login-google 
+# O fix/corrige-bug-carrito, etc.
+
+# 3. Codeá, hacé commits claros...
+
+# 4. Subí tu rama y abrí un Pull Request (PR) / Merge Request (MR)
+git push -u origin feature/agrega-login-google
